@@ -1,0 +1,63 @@
+#include <cs50.h>
+#include <stdio.h>
+#include <math.h>
+
+float get_pf(string prompt);
+int qval;
+int quarters;
+int dval;
+int dimes;
+int nval;
+int nickels;
+int pval;
+int pennies;
+int totalcoins;
+
+float get_pf(string prompt)
+{
+    float f;
+    do
+    {
+        f = get_float("%s", prompt);
+    }
+    while (f < 0);
+    return f;
+}
+
+
+int main(void)
+{
+    float realf = get_pf("How much is the customer owed? ");
+    printf("Cash owed: %.2f \n", realf);
+    
+    int coins = round(realf * 100);
+    printf("Coins: %i \n", coins);
+    for (quarters = 0; coins - qval > 25; quarters++)
+    {
+        qval = 25*quarters;
+        printf("%i, %i \n", coins - qval, quarters);
+    }
+    for (dimes = 0; coins - dval < 10; dimes++)
+    {
+        printf("Coins @ D:%i, \n", coins - qval);
+        coins = coins - qval;
+        dval = 10*dimes;  
+    }
+    for (nickels = 0; coins - nval < 5; nickels++)
+    {
+        coins = coins - dval;
+        nval = 5*nickels;
+     }
+    for (pennies = 0; coins - pval < 1; pennies++)
+    {
+        coins = coins - nval;
+        pval = 1*pennies;
+    }
+    totalcoins = quarters + dimes + nickels + pennies;
+    
+    printf("Coins:%i \n", totalcoins);
+    printf("Q:%i \n", quarters);
+    printf("D:%i \n", dimes);
+    printf("N:%i \n", nickels);
+    printf("p:%i \n", pennies);
+}
